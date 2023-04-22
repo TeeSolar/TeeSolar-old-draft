@@ -1,0 +1,20 @@
+[Desktop Entry]
+Name=TeeSolar Editor
+GenericName=Game Editor
+Categories=Game;
+Comment=Editor of the TeeSolar gaming environment
+Comment[de]=Editor der TeeSolar-Spielumgebung
+Comment[fr]=Editeur de jeu de TeeSolar
+Comment[es]=Editor del entorno de juegos TeeSolar
+Comment[la]=Editor ambientis ludicri TeeSolar
+Comment[ru]=Редактор игровой среды TeeSolar
+Comment[bs]=Uređivač igračke okoline TeeSolar
+Comment[hr]=Uređivač igračke okoline TeeSolar
+Comment[sr@latin]=Uređivač igračke okoline TeeSolar
+Comment[sr]=Уређивач играчке околине TeeSolar
+Type=Application
+MimeType=application/x-teesolar-package;
+Exec=teesolar_editor --open-package %f
+TryExec=teesolar_editor
+Terminal=false
+Icon=teesolar
