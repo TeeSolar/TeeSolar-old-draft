@@ -1,0 +1,16 @@
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+CTestTestfile.cmake
+Makefile
+build/
+cmake_install.cmake
+
+# Scripts
+scripts/release/env
+scripts/release/cmake-build
+scripts/release/archives
+scripts/assets/assets.pyc
+
+# Graphics
+datasrc/svg
