@@ -44,25 +44,25 @@ public:
 	}
 };
 
-class CLanguage_ComboBox : public gui::CComboBox
+class CLanguage_ComboBox : public gui::CComboBoxString
 {
 protected:
-	int* m_pValueContainer;
+	dynamic_string* m_pValueContainer;
 	
 protected:
-	virtual int GetValue() const
+	virtual dynamic_string GetValue() const
 	{
 		return *m_pValueContainer;
 	}
 	
-	virtual void SetValue(int Value)
+	virtual void SetValue(dynamic_string Value)
 	{
 		*m_pValueContainer = Value;
 	}
 	
 public:
-	CLanguage_ComboBox(CGui* pContext, int* pValueContainer) :
-		gui::CComboBox(pContext),
+	CLanguage_ComboBox(CGui* pContext, dynamic_string* pValueContainer) :
+		gui::CComboBoxString(pContext),
 		m_pValueContainer(pValueContainer)
 	{
 		
@@ -82,14 +82,18 @@ CPreferences::CPreferences(CGuiEditor* pAssetsEditor) :
 	//General
 	{
 		gui::CVScrollLayout* pLayout = new gui::CVScrollLayout(Context());
-		
-		gui::CHListLayout* pHList = new gui::CHListLayout(Context());
 		{
+			gui::CHListLayout* pHList = new gui::CHListLayout(Context());
 			pHList->Add(new gui::CLabel(Context(), _LSTRING("Default author name")), true);
 			pHList->Add(new gui::CExternalTextEdit_DynamicString(Context(), &AssetsEditor()->m_Cfg_DefaultAuthor), true);
+		
+			pLayout->Add(pHList, false);
 		}
 		{
-			gui::CComboBox* pComboBox = new CLanguage_ComboBox(Context(), &m_pAssetsEditor->m_Cfg_DefaultCompatibilityMode);
+			gui::CHListLayout* pHList = new gui::CHListLayout(Context());
+			
+			pHList->Add(new gui::CLabel(Context(), _LSTRING("Language")), true);
+			gui::CComboBoxString* pComboBox = new CLanguage_ComboBox(Context(), &Localization()->m_Cfg_MainLanguage);
 			pHList->Add(pComboBox, true);
 
 			for(int i=0; i<Localization()->m_pLanguages.size(); i++)
@@ -97,8 +101,9 @@ CPreferences::CPreferences(CGuiEditor* pAssetsEditor) :
 				pComboBox->Add(Localization()->m_pLanguages[i].get()->GetName(), m_pAssetsEditor->m_Path_Sprite_GizmoFrame);
 			}
 			pHList->Add(pComboBox, true);
+
+			pLayout->Add(pHList, false);
 		}
-		pLayout->Add(pHList, false);
 		
 		pTabs->AddTab(pLayout, _LSTRING("General"), AssetsEditor()->m_Path_Sprite_IconSystem);
 	}

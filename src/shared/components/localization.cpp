@@ -273,7 +273,7 @@ CLocalization::~CLocalization()
 
 bool CLocalization::InitConfig(int argc, const char** argv)
 {
-	m_Cfg_MainLanguage = "en";
+	m_Cfg_MainLanguage = "English";
 	
 	CLI()->RegisterConfigString("language", "What language to use", &m_Cfg_MainLanguage);
 	
@@ -337,7 +337,7 @@ bool CLocalization::Init()
 			if((const char *)rStart[i]["direction"] && str_comp((const char *)rStart[i]["direction"], "rtl") == 0)
 				pLanguage->SetWritingDirection(DIRECTION_RTL);
 				
-			if(m_Cfg_MainLanguage == pLanguage->GetFilename())
+			if(m_Cfg_MainLanguage == pLanguage->GetName())
 			{
 				pLanguage->Load(Storage());
 				
@@ -355,13 +355,13 @@ bool CLocalization::Init()
 
 bool CLocalization::PreUpdate()
 {
-	if(!m_pMainLanguage || m_Cfg_MainLanguage != m_pMainLanguage->GetFilename())
+	if(!m_pMainLanguage || m_Cfg_MainLanguage != m_pMainLanguage->GetName())
 	{
 		CLanguage* pLanguage = 0;
 		
 		for(unsigned int i=0; i<m_pLanguages.size(); i++)
 		{
-			if(m_Cfg_MainLanguage == m_pLanguages[i]->GetFilename())
+			if(m_Cfg_MainLanguage == m_pLanguages[i]->GetName())
 			{
 				pLanguage = m_pLanguages[i].get();
 				break;
@@ -405,7 +405,7 @@ CLocalization::CLanguage* CLocalization::GetCurrentLanguage(const char* pLanguag
 	{
 		for(unsigned int i=0; i<m_pLanguages.size(); i++)
 		{
-			if(str_comp(m_pLanguages[i]->GetFilename(), pLanguageCode) == 0)
+			if(str_comp(m_pLanguages[i]->GetName(), pLanguageCode) == 0)
 			{
 				pLanguage = m_pLanguages[i].get();
 				break;
